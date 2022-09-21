@@ -27,3 +27,4 @@ message[i] = ch;
 }
 printf("Decrypted message: %s", message);
 return 0;
+}
