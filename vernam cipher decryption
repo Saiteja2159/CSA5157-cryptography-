@@ -1,24 +1,40 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include<stdio.h>
+#include<string.h>
+ 
 int main(){
-    int t,n,i,j,k,sum=0;
-    string m;
-    cout<<"Enter the message"<<'\n';
-    cin>>m;
-    string key;
-    cout<<"Enter the key"<<'\n';
-    cin>>key;
-    int mod = key.size();
-    j=0;
-    for(i=key.size();i<m.size();i++){
-        key+=key[j%mod];
-        j++;
+    char msg[] = "THECRAZYPROGRAMMER";
+    char key[] = "HELLO";
+    int msgLen = strlen(msg), keyLen = strlen(key), i, j;
+ 
+    char newKey[msgLen], encryptedMsg[msgLen], decryptedMsg[msgLen];
+ 
+    //generating new key
+    for(i = 0, j = 0; i < msgLen; ++i, ++j){
+        if(j == keyLen)
+            j = 0;
+ 
+        newKey[i] = key[j];
     }
-    string ans="";
-    for(i=0;i<m.size();i++){
-        ans += (m[i]-key[i]+26)%26+'A';
-    }
-    cout<<"Decrypted message: "<<ans<<'\n';
-    
-    return 0;
+ 
+    newKey[i] = '\0';
+ 
+    //encryption
+    for(i = 0; i < msgLen; ++i)
+        encryptedMsg[i] = ((msg[i] + newKey[i]) % 26) + 'A';
+ 
+    encryptedMsg[i] = '\0';
+ 
+    //decryption
+    for(i = 0; i < msgLen; ++i)
+        decryptedMsg[i] = (((encryptedMsg[i] - newKey[i]) + 26) % 26) + 'A';
+ 
+    decryptedMsg[i] = '\0';
+ 
+    printf("Original Message: %s", msg);
+    printf("\nKey: %s", key);
+    printf("\nNew Generated Key: %s", newKey);
+    printf("\nEncrypted Message: %s", encryptedMsg);
+    printf("\nDecrypted Message: %s", decryptedMsg);
+ 
+return 0;
 }
